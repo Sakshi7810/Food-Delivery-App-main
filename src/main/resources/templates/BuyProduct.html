@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Buy Product</title>
+
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <style>
+        body {
+            background-image: url("https://images.pexels.com/photos/7219747/pexels-photo-7219747.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+            background-size: cover;
+        }
+
+        * {
+            font-size: 16px;
+            font-family: sans-serif;
+        }
+
+        .searchInput {
+            margin-top: 30px;
+        }
+
+        .searchInput input {
+            padding: 15px;
+            width: 270px;
+        }
+
+        .searchInput button {
+            padding: 15px;
+            width: 100px;
+            background-color: red;
+        }
+
+        .details {
+            margin-top: 70px;
+        }
+
+        .details input,
+        .details button {
+            display: block;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        a {
+            border: 1px solid black;
+            background-color: darkgoldenrod;
+            color: black;
+            text-decoration: none;
+            padding: 7px;
+            width: 50px;
+            position: fixed;
+        }
+
+        .details th {
+            background-color: dimgray;
+            padding: 10px;
+            border: none;
+        }
+
+        td {
+            text-align: center;
+            border-bottom: 1px solid lightslategrey;
+        }
+
+        .welcome marquee,
+        .welcome span {
+            width: 50%;
+            font-size: 20px;
+            color: lavender;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="welcome">
+        <marquee direction="right" behavior="slide" scrollamount="15" loop="1">
+            Welcome Back <span th:text="${name}"></span>
+        </marquee>
+        <br />
+    </div>
+
+    <a href="/login">Back</a>
+
+    <center>
+
+        <!-- Product Search -->
+        <form th:action="@{/product/search}" method="post" class="searchInput">
+            <h1>Product Search :</h1>
+            <input type="text" name="productName" required placeholder="Please enter the Product Name....">
+            <button type="submit">SEARCH</button>
+            <br />
+            <small style="color: red;" th:text="${message}"></small>
+        </form>
+		
+
+        <!-- Product Details -->
+		<!-- Product List -->
+		<div th:if="${products != null}" class="details">
+
+		    <table>
+		        <tr>
+		            <th>Name</th>
+		            <th>Price</th>
+		            <th>Order</th>
+		        </tr>
+
+		        <tr th:each="p : ${products}">
+		            <td th:text="${p.pname}"></td>
+		            <td th:text="${p.pprice}"></td>
+
+		            <td>
+		                <form th:action="@{/admin/product/order}" method="post">
+		                    <input type="hidden" name="oName" th:value="${p.pname}">
+		                    <input type="hidden" name="oPrice" th:value="${p.pprice}">
+		                    <input type="number" name="oQuantity" min="1" placeholder="Minimum: 1KG">
+		                    <button type="submit">Order</button>
+		                </form>
+		            </td>
+		        </tr>
+		    </table>
+
+		</div>
+
+
+        <!-- Orders Table -->
+        <div th:if="${orders != null}" class="details">
+            <h2>Your Orders:</h2>
+
+            <table>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Quantity</th>
+                    <th>Total Amount</th>
+                    <th>Date</th>
+                </tr>
+
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.oName}"></td>
+                    <td th:text="${order.oPrice}"></td>
+                    <td th:text="${order.oQuantity}"></td>
+                    <td th:text="${order.totalAmount}"></td>
+                    <td th:text="${order.orderDate}"></td>
+                </tr>
+            </table>
+        </div>
+
+    </center>
+
+</body>
+
+</html>

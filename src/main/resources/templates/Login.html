@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Food</title>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/img/b.png}" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link th:href="@{/css/Navigation.css}" rel="stylesheet" />
+    <link th:href="@{/css/Login.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<nav th:replace="~{Navigation::navbar()}"></nav>
+
+<div class="LoginContainer">
+	<div class="admin">
+				<div class="content">
+					<strong style="font-size: 16px;margin-bottom: 0px;">BUSINESS</strong>
+					<h2>For <span style="color:green;">Admins</span></h2>
+
+					<form action="" th:action="@{/admin/adminLogin}" method="post">
+
+						<b>Email :</b>
+	                    <input type="email" name="email" placeholder="Enter email..." class="email"> <br />
+	                    
+	                    <b> Password:</b>
+						<input type="password" name="password" placeholder="Enter password" class="password">
+						
+						<small style="color: red;" th:text="${error}"></small><br />
+						<button type="submit" class="loginButton">Log in</button>
+					</form>
+				</div>
+			</div>
+    <div class="user">
+        <div class="content">
+            <h2>For <span style="color:green;">Users</span></h2>
+
+            <form th:action="@{/user-login}" method="post" th:object="${userLogin}">
+
+                <b>Email :</b>
+                <input type="email" name="userEmail" 
+                       placeholder="Enter email" required />
+
+                <b>Password:</b>
+                <input type="password" name="userPassword"
+                       placeholder="Enter password"
+                       minlength="4" maxlength="8" required />
+
+                <!-- ERROR MESSAGE -->
+                <small style="color: red;" th:text="${error2}"></small>
+
+                <button type="submit" class="loginButton">Log in</button>
+
+                <p>
+                    I don't have an account?
+                    <a th:href="@{/register}" style="color: green;">Register Here</a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

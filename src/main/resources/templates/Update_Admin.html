@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Update Admin</title>
+    <link rel="stylesheet" th:href="@{/css/Update_Admin.css}" />
+</head>
+<body>
+
+<a href="/admin/services">Back to Services</a>
+
+<div class="updateAdmin">
+    <h3 style="color: red;">UPDATE EXISTING ADMIN / PARTNER DETAILS</h3>
+
+    <!-- VERY IMPORTANT: method="post" -->
+    <form th:action="@{'/admin/updatingAdmin/' + ${admin.adminId}}" 
+          th:object="${admin}" method="post">
+
+        <!-- Hidden ID (correct binding) -->
+        <input type="hidden" th:field="*{adminId}"/>
+
+        Admin_Name :
+        <input type="text" th:field="*{adminName}" required/><br />
+
+        Admin_Number :
+        <input type="tel" th:field="*{adminNumber}" pattern="[0-9]{10}" required/> <br />
+
+        Admin_Email :
+        <input type="email" th:field="*{adminEmail}" required/> <br />
+        
+        <button type="submit">Update Admin</button>
+
+    </form>
+</div>
+
+</body>
+</html>

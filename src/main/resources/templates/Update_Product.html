@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Update Product</title>
+    <link rel="stylesheet" th:href="@{/css/Update_Product.css}" />
+</head>
+
+<body>
+
+<a href="/admin/services">Back to Services</a>
+
+<div class="updateProduct">
+    <h3 style="font-weight: bold; color: seagreen;">UPDATE PRODUCT :</h3>
+
+    <!-- Correct FORM -->
+    <form th:action="@{'/admin/updatingProduct/' + ${product.pid}}" 
+          th:object="${product}" method="post">
+
+        <!-- MUST include hidden ID -->
+        <input type="hidden" th:field="*{pid}" />
+
+        <!-- Product name -->
+        <label>Product Name:</label>
+        <input type="text" th:field="*{pname}" placeholder="Enter Name" required />
+        <br /><br />
+
+        <!-- Product price -->
+        <label>Product Price:</label>
+        <input type="number" th:field="*{pprice}" placeholder="Enter Price" required />
+        <br /><br />
+
+        <!-- Product description -->
+        <label>Product Description:</label><br />
+        <textarea th:field="*{pdescription}" rows="3" cols="25"
+                  placeholder="Enter Description"></textarea>
+        <br /><br />
+
+        <button type="submit">Update Product</button>
+    </form>
+
+</div>
+
+</body>
+</html>

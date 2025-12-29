@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin : Update</title>
+    <link rel="stylesheet" th:href="@{/css/Update_User.css}" />
+</head>
+
+<body>
+
+<a th:href="@{/admin/services}">Back to Services</a>
+
+<div class="updateUser">
+    <h3 style="color: red;">UPDATE EXISTING USER/CUSTOMER</h3>
+
+    <form th:action="@{/admin/updateUser/{id}(id=${user.u_id})}" 
+          th:object="${user}" method="post">
+
+        <!-- ID Hidden -->
+        <input type="hidden" name="u_id" th:value="${user.u_id}" />
+
+        User Name:
+        <input type="text" name="uname" th:value="${user.uname}" required /><br/>
+
+        User Email:
+        <input type="email" name="uemail" th:value="${user.uemail}" required /><br/>
+		User Password:
+		       <input type="password" name="upassword" th:value="${user.upassword}" required /><br/>
+        
+			   User Number:
+        <input type="tel" name="unumber" 
+               th:value="${user.unumber}" pattern="[0-9]{10}" required /><br/>
+
+        <button type="submit">Update User</button>
+    </form>
+</div>
+
+</body>
+</html>

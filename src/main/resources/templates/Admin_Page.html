@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/Admin_Page.css}" />
+</head>
+<body>
+
+<!-- Navbar Fragment -->
+<nav th:replace="~{Navigation :: navbar}"></nav>
+
+<div class="container" style="padding:20px;">
+    <h1>Admin Dashboard</h1>
+
+    <!-- ADMINS SECTION -->
+    <section style="margin-top:30px;">
+        <h2>Admins</h2>
+        <a th:href="@{/admin/addAdmin}" class="btn">Add Admin</a>
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Admin Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="admin : ${admins}">
+                    <td th:text="${admin.adminId}"></td>
+                    <td th:text="${admin.adminName}"></td>
+                    <td th:text="${admin.adminEmail}"></td>
+                    <td th:text="${admin.adminNumber}"></td>
+                    <td>
+                        <a th:href="@{'/admin/updateAdmin/' + ${admin.adminId}}" class="btn">Edit</a>
+                        <form th:action="@{'/admin/deleteAdmin/' + ${admin.adminId}}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+	<section style="margin-top:30px;">
+	    <h2>Users</h2>
+	    <a th:href="@{/admin/addUser}" class="btn">Add User</a>
+
+	    <table border="1" cellpadding="8" cellspacing="0">
+	        <thead>
+	            <tr>
+	                <th>User_Id</th>
+	                <th>User_Name</th>
+	                <th>User_Email</th>
+	                <th>User_Password</th>
+	                <th>User_Number</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+
+	        <tbody>
+	            <tr th:each="user : ${users}">
+	                <td th:text="${user.u_id}"></td>
+	                <td th:text="${user.uname}"></td>
+	                <td th:text="${user.uemail}"></td>
+	                <td th:text="${user.upassword}"></td>
+	                <td th:text="${user.unumber}"></td>
+
+	                <td>
+	                    <a th:href="@{'/admin/updateUser/' + ${user.u_id}}" class="btn">Edit</a>
+
+	                    <form th:action="@{'/admin/deleteUser/' + ${user.u_id}}"
+	                          method="post"
+	                          style="display:inline;">
+	                        <button type="submit" class="btn btn-danger">Delete</button>
+	                    </form>
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</section>
+
+
+    <!-- PRODUCTS SECTION -->
+    <section style="margin-top:30px;">
+        <h2>Products</h2>
+		<form th:action="@{/admin/product/search}" method="post" style="margin-bottom:15px;">
+		        <input type="text" name="keyword" placeholder="Search product..." required />
+		        <button type="submit" class="btn">Search</button>
+		    </form>
+		
+		    <br/>
+        <a th:href="@{/admin/addProduct}" class="btn">Add Product</a>
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Product Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.pid}"></td>
+                    <td th:text="${product.pname}"></td>
+                    <td th:text="${product.pdescription}"></td>
+                    <td th:text="${product.pprice}"></td>
+                    <td>
+                        <a th:href="@{'/admin/updateProduct/' + ${product.pid}}" class="btn">Edit</a>
+                        <form th:action="@{'/admin/deleteProduct/' + ${product.pid}}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+						
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ORDERS SECTION -->
+    <section style="margin-top:30px;">
+        <h2>Orders</h2>
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+				
+				<tr th:each="order : ${orders}">
+				              
+                
+                    <td th:text="${order.oId}"></td>
+                    <td th:text="${order.oName}"></td>
+                    <td th:text="${order.oQuantity}"></td>
+                    <td th:text="${order.oPrice}"></td>
+                    <td th:text="${order.totalAmount}"></td>
+                    <td th:text="${order.orderDate != null ? #dates.format(order.orderDate, 'dd-MM-yyyy HH:mm') : 'N/A'}"></td>
+                    <td th:text="${order.user != null ? order.user.uname : 'N/A'}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+
+</body>
+</html>

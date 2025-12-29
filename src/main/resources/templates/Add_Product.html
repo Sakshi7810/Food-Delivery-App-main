@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Product</title>
+    <link rel="stylesheet" th:href="@{/css/Add_Product.css}" />
+</head>
+
+<body>
+<a href="/admin/services">Back to Services</a>
+
+<div class="addProducts">
+    <h3 style="font-weight: bold; color: seagreen;">ADD NEW PRODUCT :</h3>
+
+    <form th:action="@{/admin/addingProduct}" method="post">
+
+        Product Name:
+        <input type="text" name="pname" placeholder="Enter Product Name" required/><br/>
+
+        Product Price:
+        <input type="number" name="pprice" placeholder="Enter Product Price" required/><br/>
+
+        Product Description:<br/>
+        <textarea name="pdescription" cols="20" rows="2"
+                  placeholder="Enter description" required></textarea><br/>
+
+        <button type="submit">Add Product</button>
+
+    </form>
+</div>
+
+</body>
+</html>
